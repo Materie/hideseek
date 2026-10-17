@@ -1,0 +1,7 @@
+kill @e[type=#minecraft:undead,tag=!dummy_hider]
+kill @e[type=minecraft:creeper]
+kill @e[type=minecraft:spider]
+kill @e[type=minecraft:cave_spider]
+kill @e[type=minecraft:enderman]
+kill @e[type=minecraft:witch]
+kill @e[type=minecraft:slime]

@@ -1,0 +1,1 @@
+$spreadplayers ~ ~ 3 20 under $(ceiling) false @e[type=minecraft:husk,tag=dummy_hider]
