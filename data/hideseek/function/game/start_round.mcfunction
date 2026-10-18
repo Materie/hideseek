@@ -66,8 +66,9 @@ tp @a[tag=seeker] @n[type=minecraft:marker,tag=spawn_staging]
 execute if score #dummies round matches 1.. at @n[type=minecraft:marker,tag=spawn_dummy] run function hideseek:dummy/spawn
 team join hiders @e[type=minecraft:husk,tag=dummy_hider]
 
-# Prepare boundary data (centre marker + storage); border goes live when seeker is released
+# Prepare boundary data (centre marker + storage) and put the real border live for the whole round
 function hideseek:boundary/prep
+function hideseek:boundary/on
 tellraw @a[tag=hider] [{"text":"Boundary: ","color":"yellow"},{"score":{"name":"#bound_size","objective":"round"}},{"text":" blocks wide. Stay inside the orange wall!","color":"yellow"}]
 
 # Head start: hiders scatter while the seeker waits
