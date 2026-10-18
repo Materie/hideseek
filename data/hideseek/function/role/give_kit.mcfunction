@@ -11,7 +11,7 @@ $execute if score #hint_uses round matches 1.. run give @a[tag=seeker] minecraft
 
 # Seeker is visible and slightly faster for the whole round
 effect give @a[tag=seeker] minecraft:glowing infinite 0 true
-effect give @a[tag=seeker] minecraft:speed infinite 0 true
+effect give @a[tag=seeker] minecraft:speed infinite 2 true
 # No hunger for everyone
 effect give @a minecraft:saturation infinite 0 true
 
