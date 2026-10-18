@@ -17,6 +17,7 @@ scoreboard players set #grace round 60
 scoreboard players add #dummies round 0
 scoreboard players add #active round 0
 scoreboard players set #headstart round 600
+scoreboard players set #headstart_dummy round 30
 scoreboard players add #adventure round 0
 scoreboard objectives add seeks dummy "Times as Seeker"
 scoreboard objectives add status dummy

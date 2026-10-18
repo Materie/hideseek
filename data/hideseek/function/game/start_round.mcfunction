@@ -73,8 +73,8 @@ tellraw @a[tag=hider] [{"text":"Boundary: ","color":"yellow"},{"score":{"name":"
 
 # Head start: hiders scatter while the seeker waits
 scoreboard players operation #head round = #headstart round
-# If every hider is a dummy (husks are spread instantly), shrink the head start to 30 ticks
-execute unless entity @a[tag=hider] run scoreboard players set #head round 30
+# If every hider is a dummy (husks are spread instantly), shrink the head start to a shortened duration
+execute unless entity @a[tag=hider] run scoreboard players operation #head round = #headstart_dummy round
 execute store result bossbar hideseek:timer max run scoreboard players get #head round
 bossbar set hideseek:timer color blue
 bossbar set hideseek:timer players @a
