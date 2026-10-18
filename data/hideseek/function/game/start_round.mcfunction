@@ -60,6 +60,9 @@ scoreboard players operation #hint_uses round += #hint_base round
 execute store result storage hideseek:tmp hint_uses int 1 run scoreboard players get #hint_uses round
 function hideseek:role/give_kit with storage hideseek:tmp
 
+# Full heal so nobody starts the round wounded
+effect give @a minecraft:instant_health 1 255 true
+
 # Hiders go to the hider spawn; the seeker waits in staging
 tp @a[tag=hider] @n[type=minecraft:marker,tag=spawn_hider]
 tp @a[tag=seeker] @n[type=minecraft:marker,tag=spawn_staging]
