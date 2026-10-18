@@ -31,6 +31,8 @@ execute as @a[tag=hider] at @s run function hideseek:role/assign_hid
 team leave @a
 team join seekers @a[tag=seeker]
 team join hiders @a[tag=hider]
+team modify hiders friendlyFire false
+team modify seekers friendlyFire false
 
 # Announce
 title @a[tag=seeker] subtitle {"text":"Released after the head start","color":"gray"}
