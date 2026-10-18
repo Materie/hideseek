@@ -31,6 +31,6 @@ scoreboard players set #hint_uses round 5
 scoreboard players set #hint_interval round 1200
 scoreboard objectives add hid dummy
 scoreboard objectives add dc_state dummy
-scoreboard players set #bound_size round 50
+scoreboard players set #bound_size round 90
 scoreboard players set #base round 1200
 scoreboard players set #per_hider round 300
