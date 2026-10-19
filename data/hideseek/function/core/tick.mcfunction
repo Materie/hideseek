@@ -11,3 +11,6 @@ execute if score #state round matches 3 run function hideseek:dc/update
 execute if score #state round matches 1 run function hideseek:game/round_tick
 execute if score #state round matches 2 run function hideseek:game/end_wait
 execute if score #state round matches 3 run function hideseek:core/head_tick
+
+# Lobby: join/menu triggers, lobby buttons, auto-start intermission
+function hideseek:lobby/tick

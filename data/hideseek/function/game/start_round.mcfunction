@@ -1,4 +1,8 @@
-scoreboard players set @a died 0
+scoreboard players set @a[tag=joined] died 0
+
+# Count this round towards the session, and leave setup mode while playing
+scoreboard players add #session_round round 1
+scoreboard players set #setup round 0
 
 # Remove any dummies and dc husks left over from the last round
 kill @e[type=minecraft:husk,tag=dummy_hider]
@@ -15,12 +19,12 @@ scoreboard players operation #hint_timer round = #hint_interval round
 tag @a remove seeker
 tag @a remove hider
 
-# Pick the seeker: fair rotation (least seeks) when enabled and 2+ real players, else random
-execute store result score #rplayers round if entity @a
+# Pick the seeker: fair rotation (least seeks) when enabled and 2+ joined players, else random
+execute store result score #rplayers round if entity @a[tag=joined]
 execute if score #rotation round matches 1 if score #rplayers round matches 2.. run function hideseek:role/pick_seeker
-execute unless entity @a[tag=seeker] run tag @r add seeker
+execute unless entity @a[tag=seeker] run tag @r[tag=joined] add seeker
 scoreboard players add @a[tag=seeker] seeks 1
-tag @a[tag=!seeker] add hider
+tag @a[tag=joined,tag=!seeker] add hider
 # Snapshot COAS stat so first-tick delta is 0
 execute as @a[tag=seeker] run scoreboard players operation @s hint_prev = @s coas_used
 
@@ -41,7 +45,7 @@ title @a[tag=hider] subtitle {"text":"Stay within the orange boundary!","color":
 title @a[tag=hider] title {"text":"You are HIDING","color":"green"}
 
 # Adventure mode, if it was switched on beforehand
-execute if score #adventure round matches 1 run gamemode adventure @a
+execute if score #adventure round matches 1 run gamemode adventure @a[tag=joined]
 
 # Calculate round length based on the number of hiders (real + dummy) and the per-hider time
 execute store result score #hiders round if entity @a[tag=hider]
@@ -61,7 +65,7 @@ execute store result storage hideseek:tmp hint_uses int 1 run scoreboard players
 function hideseek:role/give_kit with storage hideseek:tmp
 
 # Full heal so nobody starts the round wounded
-effect give @a minecraft:instant_health 1 255 true
+effect give @a[tag=joined] minecraft:instant_health 1 255 true
 
 # Hiders go to the hider spawn; the seeker waits in staging
 tp @a[tag=hider] @n[type=minecraft:marker,tag=spawn_hider]
@@ -84,4 +88,5 @@ execute store result bossbar hideseek:timer max run scoreboard players get #head
 bossbar set hideseek:timer color blue
 bossbar set hideseek:timer players @a
 scoreboard players set #state round 3
+scoreboard players set #intermission round -1
 function hideseek:status/on

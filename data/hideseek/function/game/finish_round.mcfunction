@@ -1,4 +1,8 @@
 scoreboard players set #state round 0
+# Restore team defaults so other games in this world aren't affected.
+# The normal round end lands here without going through end_game, so restore both ways.
+team modify hiders friendlyFire true
+team modify seekers friendlyFire true
 function hideseek:boundary/off
 function hideseek:status/off
 kill @e[type=minecraft:husk,tag=dummy_hider]
@@ -9,12 +13,13 @@ scoreboard players reset * hid
 scoreboard players set #hint_base round 0
 scoreboard players set #hint_per_hider round 1
 scoreboard players set #hint_cooldown round 0
-clear @a
-effect clear @a
-gamemode survival @a
-team leave @a
+clear @a[tag=joined]
+effect clear @a[tag=joined]
+gamemode survival @a[tag=joined]
+team leave @a[tag=joined]
 tag @a remove seeker
 tag @a remove hider
+scoreboard players set #intermission round -1
 
 # Back to staging
-tp @a @n[type=minecraft:marker,tag=spawn_staging]
+tp @a[tag=joined] @n[type=minecraft:marker,tag=spawn_staging]

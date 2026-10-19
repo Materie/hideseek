@@ -1,5 +1,5 @@
 # Ensure a boundary centre exists (fall back to hider spawn)
-execute unless entity @e[type=minecraft:marker,tag=bound_centre] at @n[type=minecraft:marker,tag=spawn_hider] run summon minecraft:marker ~ ~ ~ {Tags:["bound_centre"]}
+execute unless entity @e[type=minecraft:marker,tag=bound_centre] at @n[type=minecraft:marker,tag=spawn_hider] run summon minecraft:marker ~ ~ ~ {Tags:["bound_centre"],tags:["bound_centre"]}
 
 # Store centre XYZ into shared storage
 data modify storage hideseek:tmp bx set from entity @n[type=minecraft:marker,tag=bound_centre] Pos[0]

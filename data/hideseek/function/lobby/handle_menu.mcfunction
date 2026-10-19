@@ -1,0 +1,9 @@
+execute if score @s hs_menu matches 1 run function hideseek:lobby/menu
+execute if score @s hs_menu matches 10 run function hideseek:lobby/start_click
+execute if score @s hs_menu matches 11 run function hideseek:dummy/add
+execute if score @s hs_menu matches 12 run function hideseek:dummy/remove
+execute if score @s hs_menu matches 13 run function hideseek:lobby/toggle_auto
+execute if score @s hs_menu matches 14 run function hideseek:game/button_end_game
+execute if score @s hs_menu matches 15 run function hideseek:game/reset_scores
+execute if score @s hs_menu matches 16 run function hideseek:lobby/info
+execute if score @s hs_menu matches 17 run function hideseek:lobby/handle_join

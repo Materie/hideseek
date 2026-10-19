@@ -1,5 +1,6 @@
-execute unless score #state round matches 0 run return run tellraw @p {"text":"Dummies can only be changed in staging.","color":"yellow"}
-execute if score #dummies round matches 5.. run return run tellraw @p {"text":"Maximum of 5 dummies.","color":"yellow"}
+execute unless score #setup round matches 1 unless score #ui round matches 0 run return run tellraw @s {"text":"Dummy controls are off. An operator can run /function hideseek:lobby/setup_on.","color":"yellow"}
+execute unless score #state round matches 0 run return run tellraw @s {"text":"Dummies can only be changed in staging.","color":"yellow"}
+execute if score #dummies round matches 5.. run return run tellraw @s {"text":"Maximum of 5 dummies.","color":"yellow"}
 
 scoreboard players add #dummies round 1
 
