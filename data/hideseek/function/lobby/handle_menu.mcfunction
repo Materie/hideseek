@@ -7,3 +7,8 @@ execute if score @s hs_menu matches 14 run function hideseek:game/button_end_gam
 execute if score @s hs_menu matches 15 run function hideseek:game/reset_scores
 execute if score @s hs_menu matches 16 run function hideseek:lobby/info
 execute if score @s hs_menu matches 17 run function hideseek:lobby/handle_join
+execute if score @s hs_menu matches 18 run function hideseek:ceremony/start
+execute if score @s hs_menu matches 19 run function hideseek:ceremony/info
+execute if score @s hs_menu matches 20 run function hideseek:lobby/leave
+execute if score @s hs_menu matches 21 run function hideseek:lobby/toggle_setup
+execute if score @s hs_menu matches 22 run function hideseek:lobby/toggle_ui

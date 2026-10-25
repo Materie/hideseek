@@ -14,3 +14,5 @@ execute if score #state round matches 3 run function hideseek:core/head_tick
 
 # Lobby: join/menu triggers, lobby buttons, auto-start intermission
 function hideseek:lobby/tick
+# Timed podium reveal and position lock, only while the ceremony is active
+execute if score #ceremony_active round matches 1 run function hideseek:ceremony/tick

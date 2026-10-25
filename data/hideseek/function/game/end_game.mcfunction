@@ -1,9 +1,10 @@
+execute if score #ceremony_active round matches 1 run return run function hideseek:ceremony/end
 function hideseek:game/finish_round
+execute as @a[tag=hs_home_saved] run function hideseek:lobby/return_home
 # Restore team defaults so other games in this world aren't affected
 team modify hiders friendlyFire true
 team modify seekers friendlyFire true
-# Everyone back to default, lobby included
-gamemode survival @a
+# finish_round already restores joined players; never change bystanders' gamemode.
 scoreboard players set #intermission round -1
 bossbar set hideseek:timer players
 function hideseek:game/reset_scores
