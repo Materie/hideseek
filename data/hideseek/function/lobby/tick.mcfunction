@@ -13,6 +13,8 @@ scoreboard players set @a[scores={hs_menu=1..}] hs_menu 0
 # Lobby buttons: rebuild if the set is incomplete or duplicated.
 # Count-based and tag-independent, so stale/broken copies always get cleaned up
 # (never spawn a new set every tick - unbounded entity growth kills FPS).
+# The existing 4/4 button set has the old positions; migrate it once when idle.
+execute if score #state round matches 0 if score #ui round matches 1 if entity @n[type=minecraft:marker,tag=spawn_staging] unless score #layout round matches 2 run function hideseek:lobby/setup
 execute if score #state round matches 0 if score #ui round matches 1 if entity @n[type=minecraft:marker,tag=spawn_staging] at @n[type=minecraft:marker,tag=spawn_staging] run scoreboard players set #btn_count round 0
 execute if score #state round matches 0 if score #ui round matches 1 if entity @n[type=minecraft:marker,tag=spawn_staging] at @n[type=minecraft:marker,tag=spawn_staging] as @e[type=minecraft:text_display,distance=..6] run scoreboard players add #btn_count round 1
 execute if score #state round matches 0 if score #ui round matches 1 if entity @n[type=minecraft:marker,tag=spawn_staging] unless score #btn_count round matches 4 run function hideseek:lobby/setup

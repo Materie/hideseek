@@ -1,3 +1,3 @@
-# Runs positioned at the Join button; the clicker is the nearest player to it.
-execute unless entity @p[distance=..4] run return
-execute as @p[distance=..4] run function hideseek:lobby/join
+# The same physical button joins an outsider or lets a participant leave.
+execute if entity @s[tag=joined] run return run function hideseek:lobby/leave
+function hideseek:lobby/join

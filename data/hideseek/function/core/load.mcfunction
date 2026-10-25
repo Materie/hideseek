@@ -16,7 +16,6 @@ scoreboard objectives add died deathCount
 scoreboard players set #grace round 60
 scoreboard players add #dummies round 0
 scoreboard players add #active round 0
-scoreboard players add #btn_cur round 0
 scoreboard players set #headstart round 600
 scoreboard players set #headstart_dummy round 30
 scoreboard players add #adventure round 0
@@ -40,12 +39,29 @@ scoreboard players set #19 round 19
 # Match flow: roster/menu triggers, lobby buttons, auto-start intermission
 scoreboard objectives add hs_join trigger
 scoreboard objectives add hs_menu trigger
+# Ceremony placement: a working copy of each player's points, used by ceremony/rank
+scoreboard objectives add rank dummy
+# Gamemode memory: each joined player's gamemode is stored here on join so the pack can put
+# them back the way they were when a round / the game / the ceremony ends (0 survival,
+# 1 creative, 2 adventure, 3 spectator). Players with no stored value fall back to survival.
+scoreboard objectives add gm_prev dummy
+# Forced joins remember their pre-lobby location until leave or match end.
+scoreboard objectives add hs_home_x dummy
+scoreboard objectives add hs_home_y dummy
+scoreboard objectives add hs_home_z dummy
+scoreboard objectives add hs_home_dim dummy
+scoreboard objectives add cer_id dummy
+scoreboard players add #ceremony_active round 0
+scoreboard players add #ceremony_session round 0
 scoreboard players set #auto_start round 1
 scoreboard players set #intermission round -1
 scoreboard players set #intermission_time round 300
 # Click baselines persist in the scoreboard; only seed them when absent and
 # re-sync to the live buttons (a reset to 0 would re-fire the last stored click).
-scoreboard players add #btn_cur round 0
+scoreboard players add #btn_s_cur round 0
+scoreboard players add #btn_j_cur round 0
+scoreboard players add #btn_add_cur round 0
+scoreboard players add #btn_rm_cur round 0
 scoreboard players add #btn_s_prev round 0
 scoreboard players add #btn_j_prev round 0
 scoreboard players add #btn_add_prev round 0
@@ -61,10 +77,28 @@ execute unless score #cfg_init round matches 1 run scoreboard players set #ui ro
 execute unless score #cfg_init round matches 1 run scoreboard players set #setup round 0
 execute unless score #cfg_init round matches 1 run scoreboard players set #rotations round 1
 scoreboard players set #cfg_init round 1
-scoreboard players set #session_round round 0
-scoreboard players set #session_max round 1
+# Preserve progress across /reload; game/on and session_end reset these at their
+# proper lifecycle points. Resetting them here could lose the saved match mode.
+scoreboard players add #session_round round 0
+scoreboard players add #session_max round 0
+execute if score #session_max round matches ..0 run scoreboard players set #session_max round 1
 # Conditional-label visibility caches (see lobby/refresh)
 scoreboard players set #vis_start round 0
 scoreboard players set #cur_start round -1
 scoreboard players set #vis_dummy round 0
 scoreboard players set #cur_dummy round -1
+scoreboard players set #cur_join round -1
+
+# Ceremony crowd layout (see ceremony/set_shape). Seeded independently of #cfg_init so that
+# worlds that already ran an older version of this pack still get sane defaults.
+scoreboard players add #cer_front round 0
+execute if score #cer_front round matches ..0 run scoreboard players set #cer_front round 7
+scoreboard players add #cer_arms round 0
+execute if score #cer_arms round matches ..0 run scoreboard players set #cer_arms round 4
+scoreboard players add #cer_side round 0
+execute if score #cer_side round matches ..0 run scoreboard players set #cer_side round 8
+scoreboard players add #cer_gap round 0
+execute if score #cer_gap round matches ..0 run scoreboard players set #cer_gap round 2
+
+# Clear any leftover ceremony seating marks (players persist across reloads)
+tag @a remove cer_seated

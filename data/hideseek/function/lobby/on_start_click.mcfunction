@@ -1,3 +1,2 @@
-# Runs positioned at the Start button; the clicker is the nearest player to it.
-execute unless entity @p[distance=..4] run return
-execute as @p[distance=..4] run function hideseek:lobby/start_click
+# Runs as the player who just right-clicked the [ Start Round ] button.
+function hideseek:lobby/start_click
