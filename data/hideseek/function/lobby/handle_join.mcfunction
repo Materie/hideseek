@@ -1,3 +1,2 @@
-# /trigger hs_join toggles: join when off the roster, leave when on it.
-execute if entity @s[tag=joined] run return run function hideseek:lobby/leave
-function hideseek:lobby/join
+# /trigger hs_join is a remote opt-in, not the local physical lobby button.
+function hideseek:lobby/remote_join

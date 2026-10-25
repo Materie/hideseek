@@ -1,3 +1,6 @@
+# At the beginning of a new session, capture lobby modes (including changes made
+# after joining). Later rounds reuse these snapshots; late joiners saved theirs on join.
+execute if score #session_round round matches 0 as @a[tag=joined] run function hideseek:lobby/save_gamemode
 scoreboard players set @a[tag=joined] died 0
 
 # Count this round towards the session, and leave setup mode while playing
@@ -44,7 +47,8 @@ title @a[tag=seeker] title {"text":"You are the SEEKER","color":"red"}
 title @a[tag=hider] subtitle {"text":"Stay within the orange boundary!","color":"yellow"}
 title @a[tag=hider] title {"text":"You are HIDING","color":"green"}
 
-# Adventure mode, if it was switched on beforehand
+# Everybody plays in survival (or adventure if selected), not creative/spectator.
+gamemode survival @a[tag=joined]
 execute if score #adventure round matches 1 run gamemode adventure @a[tag=joined]
 
 # Calculate round length based on the number of hiders (real + dummy) and the per-hider time
@@ -68,8 +72,8 @@ function hideseek:role/give_kit with storage hideseek:tmp
 effect give @a[tag=joined] minecraft:instant_health 1 255 true
 
 # Hiders go to the hider spawn; the seeker waits in staging
-tp @a[tag=hider] @n[type=minecraft:marker,tag=spawn_hider]
-tp @a[tag=seeker] @n[type=minecraft:marker,tag=spawn_staging]
+execute at @n[type=minecraft:marker,tag=spawn_hider] run tp @a[tag=hider] ~ ~ ~ ~ ~
+execute at @n[type=minecraft:marker,tag=spawn_staging] run tp @a[tag=seeker] ~ ~ ~ ~ ~
 
 # Dummy hiders, spread out around the dummy marker
 execute if score #dummies round matches 1.. at @n[type=minecraft:marker,tag=spawn_dummy] run function hideseek:dummy/spawn

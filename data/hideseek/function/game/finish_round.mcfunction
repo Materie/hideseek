@@ -15,11 +15,11 @@ scoreboard players set #hint_per_hider round 1
 scoreboard players set #hint_cooldown round 0
 clear @a[tag=joined]
 effect clear @a[tag=joined]
-gamemode survival @a[tag=joined]
+function hideseek:lobby/restore_all_gamemodes
 team leave @a[tag=joined]
 tag @a remove seeker
 tag @a remove hider
 scoreboard players set #intermission round -1
 
 # Back to staging
-tp @a[tag=joined] @n[type=minecraft:marker,tag=spawn_staging]
+execute at @n[type=minecraft:marker,tag=spawn_staging] run tp @a[tag=joined] ~ ~ ~ ~ ~
